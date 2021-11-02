@@ -41,6 +41,13 @@ app.post('/create',(req,res)=>{  //insert
     })
 })
 
+
+app.get('/listar',(req,res)=>{
+    Employees.findAll().then(employees=>{
+        res.send(employees)
+    })
+})
+
 app.listen(3001, ()=>{
     console.log('Server on')
 })      
