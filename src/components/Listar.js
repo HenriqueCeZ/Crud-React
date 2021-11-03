@@ -5,28 +5,39 @@ import {useState} from 'react'
 
 function  Listar() {
     const [employeeList, setEmployeeList] = useState([])
-    const [click, setClick] = useState(false)
+   
+    
     
 
-   function list (){
+  
     
     Axios.get("http://localhost:3001/listar").then((response)=>{
-        if(click){
-            setEmployeeList([])
-            setClick(false)
-         }else{ 
-        setEmployeeList(response.data)
-        console.log(response)
-        setClick(true)
-    } 
-        
-    });
-}
+       
+         setEmployeeList(response.data)
+       
+     
+})
+
    
+function deleteRow(id){
+  
+  Axios.delete(`http://localhost:3001/delete/${id}`).then((response)=>{
+
+    setEmployeeList(employeeList.filter((val)=>{
+      return val.id !== id
+    }))
+      alert("deleted employee!")
+  }).catch(err =>{
+      console.log(err);  
+  })
+      
+
+
+}
 
 
 
- 
+
 
   return (
   <div className="container">
@@ -38,9 +49,6 @@ function  Listar() {
             <Link className="link" to="/">Home</Link>
           </li>
           <li>
-            <Link className="link" to="/Deletar">Deletar</Link>
-          </li>
-          <li>
             <Link className="link" to="/Atualizar">Atualizar</Link>
           </li>
         </ul>
@@ -48,24 +56,24 @@ function  Listar() {
     </header>
     </div>
     <section>
-    <button onClick={list}> List Devs</button>
+   
 
    <div className="tablediv">   
-       <div> <h3>Name</h3>
-        <h3>Age</h3>
-        <h3>Country</h3>
-        <h3>Position</h3>
-        <h3>Wage</h3>
-        </div>
+       
         {employeeList.map((val, key)=>{
           return <div className="table">
-          <h3>{val.name}</h3>
-          <h3>{val.age}</h3>
-          <h3>{val.country}</h3>
-          <h3>{val.position}</h3>
-          <h3>{val.wage}</h3>
+          <h3>Name: {val.name}</h3>
+          <h3>Age: {val.age}</h3>
+          <h3>Country: {val.country}</h3>
+          <h3>Position: {val.position}</h3>
+          <h3>Wage: {val.wage}</h3>
+          <button onClick={function(){deleteRow(val.id)}}>Deletar linha</button>
+          
+         
           
           </div>
+          
+          
         
           
                   
@@ -74,6 +82,7 @@ function  Listar() {
                 
                 
         })}
+        
         </div>  
         
          

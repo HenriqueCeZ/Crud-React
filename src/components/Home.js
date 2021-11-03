@@ -31,9 +31,7 @@ function Home() {
           <li>
             <Link className="link" to="/listar">Listar</Link>
           </li>
-          <li>
-            <Link className="link" to="/deletar">Deletar</Link>
-          </li>
+          
           <li>
             <Link className="link" to="/atualizar">Atualizar</Link>
           </li>
