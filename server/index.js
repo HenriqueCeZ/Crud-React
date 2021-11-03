@@ -49,17 +49,15 @@ app.get('/listar',(req,res)=>{
 })
 
 app.delete('/delete/:id',(req,res)=>{
-    let id= req.params.id
-    let todo =  Employees.findByPk(id)
-    if(todo){
-        await todo.destroy()
-    }
-    res.json({})
-
-        
-       })
-       
-
+    Employees.destroy(
+        {
+          where: {
+            id: req.params.id
+          }
+        }).then(result => {
+          res.send({ msg: "Success" })
+        })
+    })
 
 app.listen(3001, ()=>{
     console.log('Server on')
